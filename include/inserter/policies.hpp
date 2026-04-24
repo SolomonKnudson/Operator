@@ -22,7 +22,8 @@ namespace inserter
       INSERTER_CONCEPT(concepts::HasPushFront<Container, Args...>)
       static auto insert(Container& container, Args&&... args)
           INSERTER_TRAILING_RETURN(
-              container.push_front(std::forward<Args>(args)...), void())
+              decltype(container.push_front(std::forward<Args>(args)...),
+                       void()))
       {
         container.push_front(std::forward<Args>(args)...);
       }
@@ -34,7 +35,8 @@ namespace inserter
       INSERTER_CONCEPT(concepts::HasEmplaceFront<Container, Args...>)
       static auto insert(Container& container, Args&&... args)
           INSERTER_TRAILING_RETURN(
-              container.emplace_front(std::forward<Args>(args)...), void())
+              decltype(container.emplace_front(std::forward<Args>(args)...),
+                       void()))
       {
         if constexpr (sizeof...(Args) == 0)
         {
@@ -54,7 +56,8 @@ namespace inserter
       INSERTER_CONCEPT(concepts::HasPushBack<Container, Args...>)
       static auto insert(Container& container, Args&&... args)
           INSERTER_TRAILING_RETURN(
-              container.push_back(std::forward<Args>(args)...), void())
+              decltype(container.push_back(std::forward<Args>(args)...),
+                       void()))
       {
         container.push_back(std::forward<Args>(args)...);
       }
@@ -66,7 +69,8 @@ namespace inserter
       INSERTER_CONCEPT(concepts::HasEmplaceBack<Container, Args...>)
       static auto insert(Container& container, Args&&... args)
           INSERTER_TRAILING_RETURN(
-              container.emplace_back(std::forward<Args>(args)...), void())
+              decltype(container.emplace_back(std::forward<Args>(args)...),
+                       void()))
       {
         if constexpr (sizeof...(Args) == 0)
         {
