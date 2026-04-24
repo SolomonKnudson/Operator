@@ -1,16 +1,36 @@
 #include <inserter/inserter.hpp>
+
+// STL
 #include <list>
+#include <string>
 #include <vector>
+
+INSERTER_CREATE_TAG(NoOp);
+
+template <> struct inserter::policies::Inserter<NoOp>
+{
+  template <typename... Args>
+  static void
+  insert(Args&&... args)
+  {
+  }
+};
 
 int
 main(int argc, char* argv[])
 {
-  // std::list<int> test{};
-  std::vector<int> test{};
+  using namespace inserter;
+  using namespace inserter::tags;
+  using namespace inserter::policies;
 
-  inserter::insert(test, inserter::tags::tag<inserter::tags::emplace_back>);
+  std::list<int> test{};
+  // std::vector<int> test{};
+  // std::vector<std::pair<int, int>> test{};
 
-  inserter::util::display(test, ", ");
+  insert(test, tag<NoOp>, 17, 43, 50, 23, 99);
+
+  std::string separator{", "};
+  inserter::util::display(test, separator);
   return 0;
 }
 
