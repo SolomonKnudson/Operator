@@ -26,8 +26,8 @@ namespace inserter
                                      << *std::begin(container),
                                  void())
     {
-      auto it{container.begin()};
-      auto end{container.end()};
+      auto it{container.cbegin()};
+      auto end{container.cend()};
 
       if (it == end)
       {
