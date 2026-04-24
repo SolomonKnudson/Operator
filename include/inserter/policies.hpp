@@ -36,7 +36,14 @@ namespace inserter
           INSERTER_TRAILING_RETURN(
               container.emplace_front(std::forward<Args>(args)...), void())
       {
-        (container.emplace_front(std::forward<Args>(args)), ...);
+        if constexpr (sizeof...(Args) == 0)
+        {
+          container.emplace_front();
+        }
+        else
+        {
+          (container.emplace_front(std::forward<Args>(args)), ...);
+        }
       }
     };
 
@@ -61,7 +68,14 @@ namespace inserter
           INSERTER_TRAILING_RETURN(
               container.emplace_back(std::forward<Args>(args)...), void())
       {
-        (container.emplace_back(std::forward<Args>(args)), ...);
+        if constexpr (sizeof...(Args) == 0)
+        {
+          container.emplace_back();
+        }
+        else
+        {
+          (container.emplace_back(std::forward<Args>(args)), ...);
+        }
       }
     };
   } // namespace policies
