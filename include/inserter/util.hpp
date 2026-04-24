@@ -20,8 +20,8 @@ namespace inserter
         })
     static auto display(const Container& container,
                         const std::string& separator = "\n")
-        INSERTER_TRAILING_RETURN(std::cbegin(container),
-                                 std::cend(container),
+        INSERTER_TRAILING_RETURN(container.begin(),
+                                 container.cend(),
                                  std::declval<std::ostream&>()
                                      << *std::begin(container),
                                  void())
