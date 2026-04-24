@@ -21,4 +21,32 @@ set_target_properties(Inserter PROPERTIES
   VISIBILITY_INLINES_HIDDEN ON
 )
 
-  add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/app)
+add_library(debug_warnings INTERFACE)
+target_compile_options(debug_warnings INTERFACE
+  $<$<AND:$<CONFIG:Debug>,$<CXX_COMPILER_ID:GNU>>:
+    -Wall
+    -Wextra
+    -Wpedantic
+    -Wshadow
+    -Wconversion
+    -Wmissing-declarations
+    -Wnon-virtual-dtor
+    -Wold-style-cast
+    -Wformat=2
+    -Wnull-dereference
+    -Woverloaded-virtual
+    -Wsign-conversion
+    -Wundef
+    -Wdouble-promotion
+    -Wcast-align
+    -Wcast-qual
+    # -Werror
+  >
+) 
+
+
+target_link_libraries(Inserter INTERFACE
+  debug_warnings
+)
+
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/app)
