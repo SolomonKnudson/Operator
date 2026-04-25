@@ -6,7 +6,7 @@
 namespace Operator
 {
   template <typename Tag, typename Container, typename... Args>
-  static auto
+  static decltype(auto)
   operation(Container& container, Args&&... args)
   {
     return policies::Operator<Tag>::operation(container,
