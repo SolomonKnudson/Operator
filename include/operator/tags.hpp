@@ -4,8 +4,6 @@
 
 namespace Operator::tags
 {
-  template <typename Tag> inline constexpr Tag tag{};
-
   /*  Tags
     *  struct name
     *  {
