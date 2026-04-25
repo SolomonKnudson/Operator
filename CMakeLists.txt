@@ -21,6 +21,10 @@ set_target_properties(Inserter PROPERTIES
   VISIBILITY_INLINES_HIDDEN ON
 )
 
+
+
+
+if(PROJECT_IS_TOP_LEVEL)
 add_library(debug_warnings INTERFACE)
 target_compile_options(debug_warnings INTERFACE
   $<$<AND:$<CONFIG:Debug>,$<CXX_COMPILER_ID:GNU>>:
@@ -44,9 +48,9 @@ target_compile_options(debug_warnings INTERFACE
   >
 ) 
 
-
 target_link_libraries(Inserter INTERFACE
   debug_warnings
 )
 
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/app)
+endif()
