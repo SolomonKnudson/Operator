@@ -11,7 +11,7 @@ template <> struct Operator::policies::Operator<NoOp>
 {
   template <typename... Args>
   static void
-  insert(Args&&... args)
+  operation(Args&&...)
   {
   }
 };
@@ -28,7 +28,8 @@ main(int argc, char* argv[])
   // std::vector<int> test{};
   // std::vector<std::pair<int, int>> test{};
 
-  operation<emplace_back>(test, 17, 43, 50, 23, 99);
+  // operation<emplace_back>(test, 17, 43, 50, 23, 99);
+  operation<NoOp>(test, 17, 43, 50, 23, 99);
   // inserters::emplace_back(test, 17, 43, 50, 23, 99);
 
   std::string separator{", "};

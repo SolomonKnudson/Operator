@@ -20,7 +20,6 @@ namespace Operator::concepts
   //Back insertions
   OPERATOR_CREATE_HAS_INSERTION_OP_CONCEPT(EmplaceBack, emplace_back);
   OPERATOR_CREATE_HAS_INSERTION_OP_CONCEPT(PushBack, push_back);
-} // namespace concepts
-} // namespace Operator
+} // namespace Operator::concepts
 #endif // __cpp_concepts
 #endif // OPERATOR_CONCEPTS_HPP
