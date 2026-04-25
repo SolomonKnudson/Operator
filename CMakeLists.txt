@@ -24,6 +24,7 @@ set_target_properties(Inserter PROPERTIES
 
 
 
+#For internal development only
 if(PROJECT_IS_TOP_LEVEL)
 add_library(debug_warnings INTERFACE)
 target_compile_options(debug_warnings INTERFACE

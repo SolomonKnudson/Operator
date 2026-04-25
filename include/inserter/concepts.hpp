@@ -24,5 +24,5 @@ namespace inserter
     INSERTER_CREATE_HAS_INSERTION_OP_CONCEPT(PushBack, push_back);
   } // namespace concepts
 } // namespace inserter
-#endif
+#endif // __cpp_concepts
 #endif // INSERTER_CONCEPTS
