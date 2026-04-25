@@ -2,7 +2,7 @@
 #define OPERATOR_INSERTERS_HPP
 #include <operator/operation.hpp>
 
-namespace Operator::operations::inserters
+namespace Operator::inserters
 {
   template <typename Container, typename... Args>
   static auto
@@ -33,6 +33,6 @@ namespace Operator::operations::inserters
     return operation<tags::emplace_back>(container,
                                          std::forward<Args>(args)...);
   }
-} // namespace Operator::operations::inserters
-#endif // OPERATOR_INSERTER_HPP
+} // namespace Operator::inserters
+#endif // OPERATOR_INSERTERS_HPP
 

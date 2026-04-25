@@ -1,9 +1,9 @@
-#ifndef OPERATOR_OPERATIONS_HPP
-#define OPERATOR_OPERATIONS_HPP
+#ifndef OPERATOR_OPERATION_HPP
+#define OPERATOR_OPERATION_HPP
 #include <operator/policies.hpp>
 #include <operator/tags.hpp>
 
-namespace Operator::operations
+namespace Operator
 {
   template <typename Tag, typename Container, typename... Args>
   static auto
@@ -12,6 +12,6 @@ namespace Operator::operations
     return policies::Operator<Tag>::operation(container,
                                               std::forward<Args>(args)...);
   }
-} // namespace Operator::operations
-#endif // OPERATOR_OPERATIONS_HPP
+} // namespace Operator
+#endif // OPERATOR_OPERATION_HPP
 
