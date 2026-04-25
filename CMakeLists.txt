@@ -4,19 +4,19 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS true)
 #Stop module flags from being passed
 set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
 
-project(Inserter LANGUAGES CXX)
+project(Operator LANGUAGES CXX)
 
-add_library(Inserter INTERFACE)
+add_library(Operator INTERFACE)
 
-target_include_directories(Inserter INTERFACE 
+target_include_directories(Operator INTERFACE 
   $<BUILD_LOCAL_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include/>
 )
 
-target_compile_features(Inserter INTERFACE
+target_compile_features(Operator INTERFACE
   cxx_std_17
 )
 
-set_target_properties(Inserter PROPERTIES
+set_target_properties(Operator PROPERTIES
   CXX_VISIBILITY_PRESET hidden
   VISIBILITY_INLINES_HIDDEN ON
 )
@@ -49,7 +49,7 @@ target_compile_options(debug_warnings INTERFACE
   >
 ) 
 
-target_link_libraries(Inserter INTERFACE
+target_link_libraries(Operator INTERFACE
   debug_warnings
 )
 

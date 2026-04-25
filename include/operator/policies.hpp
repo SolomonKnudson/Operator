@@ -1,27 +1,27 @@
-#ifndef INSERTER_POLICIES
-#define INSERTER_POLICIES
-#include <inserter/concepts.hpp>
-#include <inserter/macros.hpp>
-#include <inserter/tags.hpp>
+#ifndef OPERATOR_POLICIES_HPP
+#define OPERATOR_POLICIES_HPP
+#include <operator/concepts.hpp>
+#include <operator/macros.hpp>
+#include <operator/tags.hpp>
 
 // STL
 #include <utility>
 
-namespace inserter
+namespace Operator
 {
   namespace policies
   {
-    template <typename Tag> struct Inserter
+    template <typename Tag> struct Operator
     {
     };
 
     // Front insertions
-    template <> struct Inserter<tags::push_front>
+    template <> struct Operator<tags::push_front>
     {
       template <typename Container, typename... Args>
-      INSERTER_CONCEPT(concepts::HasPushFront<Container, Args...>)
-      static auto insert(Container& container, Args&&... args)
-          INSERTER_TRAILING_RETURN(
+      OPERATOR_CONCEPT(concepts::HasPushFront<Container, Args...>)
+      static auto operation(Container& container, Args&&... args)
+          OPERATOR_TRAILING_RETURN(
               decltype(container.push_front(std::forward<Args>(args)...),
                        void()))
       {
@@ -29,12 +29,12 @@ namespace inserter
       }
     };
 
-    template <> struct Inserter<tags::emplace_front>
+    template <> struct Operator<tags::emplace_front>
     {
       template <typename Container, typename... Args>
-      INSERTER_CONCEPT(concepts::HasEmplaceFront<Container, Args...>)
-      static auto insert(Container& container, Args&&... args)
-          INSERTER_TRAILING_RETURN(
+      OPERATOR_CONCEPT(concepts::HasEmplaceFront<Container, Args...>)
+      static auto operation(Container& container, Args&&... args)
+          OPERATOR_TRAILING_RETURN(
               decltype(container.emplace_front(std::forward<Args>(args)...),
                        void()))
       {
@@ -50,12 +50,12 @@ namespace inserter
     };
 
     // Back insertions
-    template <> struct Inserter<tags::push_back>
+    template <> struct Operator<tags::push_back>
     {
       template <typename Container, typename... Args>
-      INSERTER_CONCEPT(concepts::HasPushBack<Container, Args...>)
-      static auto insert(Container& container, Args&&... args)
-          INSERTER_TRAILING_RETURN(
+      OPERATOR_CONCEPT(concepts::HasPushBack<Container, Args...>)
+      static auto operation(Container& container, Args&&... args)
+          OPERATOR_TRAILING_RETURN(
               decltype(container.push_back(std::forward<Args>(args)...),
                        void()))
       {
@@ -63,12 +63,12 @@ namespace inserter
       }
     };
 
-    template <> struct Inserter<tags::emplace_back>
+    template <> struct Operator<tags::emplace_back>
     {
       template <typename Container, typename... Args>
-      INSERTER_CONCEPT(concepts::HasEmplaceBack<Container, Args...>)
-      static auto insert(Container& container, Args&&... args)
-          INSERTER_TRAILING_RETURN(
+      OPERATOR_CONCEPT(concepts::HasEmplaceBack<Container, Args...>)
+      static auto operation(Container& container, Args&&... args)
+          OPERATOR_TRAILING_RETURN(
               decltype(container.emplace_back(std::forward<Args>(args)...),
                        void()))
       {
@@ -83,5 +83,5 @@ namespace inserter
       }
     };
   } // namespace policies
-} // namespace inserter
-#endif
+} // namespace Operator
+#endif // OPERATOR_POLICIES_HPP
