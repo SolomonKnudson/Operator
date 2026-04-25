@@ -27,10 +27,10 @@ main(int argc, char* argv[])
   // std::vector<int> test{};
   // std::vector<std::pair<int, int>> test{};
 
-  insert(test, tag<NoOp>, 17, 43, 50, 23, 99);
+  insert(test, tag<emplace_back>, 17, 43, 50, 23, 99);
 
   std::string separator{", "};
-  inserter::util::display(test, separator);
+  inserter::util::display(test, [](int x) { std::cout << x << " "; });
   return 0;
 }
 
