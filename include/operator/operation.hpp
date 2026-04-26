@@ -3,13 +3,14 @@
 #include <operator/policies.hpp>
 #include <operator/tags.hpp>
 
+#include <utility>
 namespace Operator
 {
-  template <typename Tag, typename Container, typename... Args>
+  template <typename Tag, typename Type, typename... Args>
   static decltype(auto)
-  operation(Container& container, Args&&... args)
+  operation(Type&& type, Args&&... args)
   {
-    return policies::Operator<Tag>::operation(container,
+    return policies::Operator<Tag>::operation(std::forward<Type>(type),
                                               std::forward<Args>(args)...);
   }
 } // namespace Operator
