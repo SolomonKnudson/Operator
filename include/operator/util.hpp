@@ -31,11 +31,11 @@ namespace Operator
     }
 
     template <typename Container, typename Printer>
-    OPERATOR_CREATE_REQUIRES(requires(Container& container) {
+    OPERATOR_CREATE_REQUIRES(requires(Container&& container) {
       deref(container).cbegin();
       deref(container).cend();
     })
-    static auto display(const Container&& container, Printer&& print)
+    static auto display(const Container& container, Printer&& print)
         OPERATOR_CREATE_TRAILING_RETURN(decltype(deref(container).cbegin(),
                                                  deref(container).cend(),
                                                  void()))

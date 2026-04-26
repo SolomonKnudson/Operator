@@ -1,7 +1,6 @@
 #ifndef OPERATOR_OPERATION_HPP
 #define OPERATOR_OPERATION_HPP
 #include <operator/policies.hpp>
-#include <operator/tags.hpp>
 
 #include <utility>
 namespace Operator
