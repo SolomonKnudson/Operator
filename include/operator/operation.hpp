@@ -6,12 +6,11 @@
 #include <utility>
 namespace Operator
 {
-  template <typename Tag, typename Type, typename... Args>
+  template <typename Tag, typename... Args>
   static decltype(auto)
-  operation(Type&& type, Args&&... args)
+  operation(Args&&... args)
   {
-    return policies::Operator<Tag>::operation(std::forward<Type>(type),
-                                              std::forward<Args>(args)...);
+    return policies::Operator<Tag>::operation(std::forward<Args>(args)...);
   }
 } // namespace Operator
 #endif // OPERATOR_OPERATION_HPP
