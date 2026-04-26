@@ -93,8 +93,7 @@ namespace Operator
       OPERATOR_CREATE_REQUIRES(concepts::HasEmplaceBack<Container, Args...>)
       static auto operation(Container& container, Args&&... args)
           OPERATOR_CREATE_TRAILING_RETURN(
-              decltype(container.emplace_back(std::forward<Args>(args)...),
-                       void()))
+              decltype(container.emplace_back(std::forward<Args>(args)...)))
       {
         if constexpr (sizeof...(Args) == 0)
         {
