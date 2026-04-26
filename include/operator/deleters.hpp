@@ -4,33 +4,16 @@
 
 // STL
 #include <functional>
+#include <type_traits>
 
 namespace Operator
 {
-  namespace deleters
+  namespace tags
   {
-    template <typename Type, typename Value>
-    static decltype(auto)
-    scalar(Type& type, Value&& value)
-    {
-      return operation<tags::DeleteScalar>(type, std::forward<Value>(value));
-    }
-
-    template <typename Type, typename Value>
-    static decltype(auto)
-    array(Type& type, Value&& value)
-    {
-      return operation<tags::DeleteArray>(type, std::forward<Value>(value));
-    }
-
-    template <typename Type, typename Deleter>
-    static decltype(auto)
-    custom(Type& type, Deleter&& deleter)
-    {
-      return operation<tags::CustomDeleter>(type,
-                                            std::forward<deleter>(deleter));
-    }
-  } // namespace deleters
+    OPERATOR_CREATE_TAG(DeleteScalar)
+    OPERATOR_CREATE_TAG(DeleteArray)
+    OPERATOR_CREATE_TAG(CustomDeleter)
+  } // namespace tags
 
   namespace policies
   {
@@ -56,14 +39,42 @@ namespace Operator
 
     template <> struct Operator<tags::CustomDeleter>
     {
-      template <typename T, typename Deleter>
+      template <
+          typename T,
+          typename Deleter,
+          typename = std::enable_if_t<std::is_invocable<Deleter, T*>::value>>
       static decltype(auto)
-      operation(T&& ptr, Deleter&& deleter)
+      operation(T* ptr, Deleter&& deleter)
       {
         return std::invoke(deleter, ptr);
       }
     };
   } // namespace policies
+
+  namespace deleters
+  {
+    template <typename Type>
+    static decltype(auto)
+    scalar(Type* type)
+    {
+      return policies::Operator<tags::DeleteScalar>::operation(type);
+    }
+
+    template <typename T>
+    static decltype(auto)
+    array(T* type)
+    {
+      return policies::Operator<tags::DeleteArray>::operation(type);
+    }
+
+    template <typename T, typename Deleter>
+    static decltype(auto)
+    custom(T* type, Deleter&& deleter)
+    {
+      return operation<tags::CustomDeleter>(type,
+                                            std::forward<Deleter>(deleter));
+    }
+  } // namespace deleters
 } // namespace Operator
 #endif // OPERATOR_DELETERS_HPP
 
