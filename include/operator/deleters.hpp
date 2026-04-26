@@ -21,11 +21,11 @@ namespace Operator::deleters
     return operation<tags::DeleteArray>(type, std::forward<Value>(value));
   }
 
-  template <typename Type, typename... Args>
+  template <typename Type, typename Deleter>
   static decltype(auto)
-  custom(Type& type, Args&&... args)
+  custom(Type& type, Deleter&& deleter)
   {
-    return operation<tags::CustomDeleter>(type, std::forward<Args>(args)...);
+    return operation<tags::CustomDeleter>(type, std::forward<deleter>(deleter));
   }
 } // namespace Operator::deleters
 
