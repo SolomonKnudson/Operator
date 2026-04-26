@@ -1,6 +1,7 @@
 #ifndef OPERATOR_HPP
 #define OPERATOR_HPP
 #include <operator/concepts.hpp>
+#include <operator/deleters.hpp>
 #include <operator/inserters.hpp>
 #include <operator/macros.hpp>
 #include <operator/operation.hpp>
