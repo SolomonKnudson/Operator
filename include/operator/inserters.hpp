@@ -1,58 +1,34 @@
 #ifndef OPERATOR_INSERTERS_HPP
 #define OPERATOR_INSERTERS_HPP
 #include <operator/concepts.hpp>
-#include <operator/operation.hpp>
+#include <operator/policies.hpp>
+#include <operator/util.hpp>
 #include <utility>
 
 namespace Operator
 {
-  namespace inserter
+  namespace tags
   {
-    template <typename Container, typename Value>
-    static decltype(auto)
-    push_front(Container& container, Value&& value)
-    {
-      return operation<tags::push_front>(container, std::forward<Value>(value));
-    }
+    OPERATOR_CREATE_TAG(push_front);
+    OPERATOR_CREATE_TAG(emplace_front);
 
-    template <typename Container, typename... Args>
-    static decltype(auto)
-    emplace_front(Container& container, Args&&... args)
-    {
-      return operation<tags::emplace_front>(container,
-                                            std::forward<Args>(args)...);
-    }
-
-    template <typename Container, typename Value>
-    static decltype(auto)
-    push_back(Container& container, Value&& value)
-    {
-      return operation<tags::push_back>(container, std::forward<Value>(value));
-    }
-
-    template <typename Container, typename... Args>
-    static decltype(auto)
-    emplace_back(Container& container, Args&&... args)
-    {
-      return operation<tags::emplace_back>(container,
-                                           std::forward<Args>(args)...);
-    }
-  } // namespace inserter
+    OPERATOR_CREATE_TAG(push_back);
+    OPERATOR_CREATE_TAG(emplace_back);
+  } // namespace tags
 
   namespace policies
   {
-    template <typename Tag> struct Operator;
-
     // Front insertions
     template <> struct Operator<tags::push_front>
     {
       template <typename Container, typename Value>
       OPERATOR_CREATE_REQUIRES(concepts::HasPushFront<Container, Value>)
-      static auto operation(Container& container, Value&& value)
+      static auto operation(Container&& container, Value&& value)
           OPERATOR_CREATE_TRAILING_RETURN(
-              decltype(container.push_front(std::forward<Value>(value))))
+              decltype(util::deref(container).push_front(
+                  std::forward<Value>(value))))
       {
-        return container.push_front(std::forward<Value>(value));
+        return util::deref(container).push_front(std::forward<Value>(value));
       }
     };
 
@@ -60,17 +36,20 @@ namespace Operator
     {
       template <typename Container, typename... Args>
       OPERATOR_CREATE_REQUIRES(concepts::HasEmplaceFront<Container, Args...>)
-      static auto operation(Container& container, Args&&... args)
+      static auto operation(Container&& container, Args&&... args)
           OPERATOR_CREATE_TRAILING_RETURN(
-              decltype(container.emplace_front(std::forward<Args>(args)...)))
+              decltype(util::deref(container).emplace_front(
+                  std::forward<Args>(args)...)))
       {
         if constexpr (sizeof...(Args) == 0)
         {
-          return container.emplace_front();
+          return util::deref(container).emplace_front();
         }
         else
         {
-          return (container.emplace_front(std::forward<Args>(args)), ...);
+          return (
+              util::deref(container).emplace_front(std::forward<Args>(args)),
+              ...);
         }
       }
     };
@@ -80,9 +59,10 @@ namespace Operator
     {
       template <typename Container, typename Value>
       OPERATOR_CREATE_REQUIRES(concepts::HasPushBack<Container, Value>)
-      static auto operation(Container& container, Value&& value)
+      static auto operation(Container&& container, Value&& value)
           OPERATOR_CREATE_TRAILING_RETURN(
-              decltype(container.push_back(std::forward<Value>(value))))
+              decltype(util::deref(container).push_back(
+                  std::forward<Value>(value))))
       {
         return container.push_back(std::forward<Value>(value));
       }
@@ -92,21 +72,58 @@ namespace Operator
     {
       template <typename Container, typename... Args>
       OPERATOR_CREATE_REQUIRES(concepts::HasEmplaceBack<Container, Args...>)
-      static auto operation(Container& container, Args&&... args)
+      static auto operation(Container&& container, Args&&... args)
           OPERATOR_CREATE_TRAILING_RETURN(
-              decltype(container.emplace_back(std::forward<Args>(args)...)))
+              decltype(util::deref(container).emplace_back(
+                  std::forward<Args>(args)...)))
       {
         if constexpr (sizeof...(Args) == 0)
         {
-          return container.emplace_back();
+          return util::deref(container).emplace_back();
         }
         else
         {
-          return (container.emplace_back(std::forward<Args>(args)), ...);
+          return (util::deref(container).emplace_back(std::forward<Args>(args)),
+                  ...);
         }
       }
     };
   } // namespace policies
+
+  namespace inserters
+  {
+    template <typename Container, typename Value>
+    static decltype(auto)
+    push_front(Container&& container, Value&& value)
+    {
+      return policies::Operator<tags::push_front>::operation(
+          std::forward<Container>(container), std::forward<Value>(value));
+    }
+
+    template <typename Container, typename... Args>
+    static decltype(auto)
+    emplace_front(Container&& container, Args&&... args)
+    {
+      return policies::Operator<tags::emplace_front>::operation(
+          std::forward<Container>(container), std::forward<Args>(args)...);
+    }
+
+    template <typename Container, typename Value>
+    static decltype(auto)
+    push_back(Container&& container, Value&& value)
+    {
+      return policies::Operator<tags::push_back>::operation(
+          std::forward<Container>(container), std::forward<Value>(value));
+    }
+
+    template <typename Container, typename... Args>
+    static decltype(auto)
+    emplace_back(Container&& container, Args&&... args)
+    {
+      return policies::Operator<tags::emplace_back>::operation(
+          std::forward<Container>(container), std::forward<Args>(args)...);
+    }
+  } // namespace inserters
 } // namespace Operator
 #endif // OPERATOR_INSERTERS_HPP
 
