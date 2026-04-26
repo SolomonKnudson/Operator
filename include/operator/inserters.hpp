@@ -49,10 +49,9 @@ namespace Operator
       OPERATOR_CREATE_REQUIRES(concepts::HasPushFront<Container, Args...>)
       static auto operation(Container& container, Value&& value)
           OPERATOR_CREATE_TRAILING_RETURN(
-              decltype(container.push_front(std::forward<Value>(value)),
-                       void()))
+              decltype(container.push_front(std::forward<Value>(value))))
       {
-        container.push_front(std::forward<Value>(value));
+        return container.push_front(std::forward<Value>(value));
       }
     };
 
@@ -62,16 +61,15 @@ namespace Operator
       OPERATOR_CREATE_REQUIRES(concepts::HasEmplaceFront<Container, Args...>)
       static auto operation(Container& container, Args&&... args)
           OPERATOR_CREATE_TRAILING_RETURN(
-              decltype(container.emplace_front(std::forward<Args>(args)...),
-                       void()))
+              decltype(container.emplace_front(std::forward<Args>(args)...)))
       {
         if constexpr (sizeof...(Args) == 0)
         {
-          container.emplace_front();
+          return container.emplace_front();
         }
         else
         {
-          (container.emplace_front(std::forward<Args>(args)), ...);
+          return (container.emplace_front(std::forward<Args>(args)), ...);
         }
       }
     };
@@ -83,9 +81,9 @@ namespace Operator
       OPERATOR_CREATE_REQUIRES(concepts::HasPushBack<Container, Args...>)
       static auto operation(Container& container, Value&& value)
           OPERATOR_CREATE_TRAILING_RETURN(
-              decltype(container.push_back(std::forward<Value>(value)), void()))
+              decltype(container.push_back(std::forward<Value>(value))))
       {
-        container.push_back(std::forward<Value>(value));
+        return container.push_back(std::forward<Value>(value));
       }
     };
 
@@ -100,11 +98,11 @@ namespace Operator
       {
         if constexpr (sizeof...(Args) == 0)
         {
-          container.emplace_back();
+          return container.emplace_back();
         }
         else
         {
-          (container.emplace_back(std::forward<Args>(args)), ...);
+          return (container.emplace_back(std::forward<Args>(args)), ...);
         }
       }
     };
