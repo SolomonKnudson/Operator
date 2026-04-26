@@ -1,5 +1,6 @@
 #ifndef OPERATOR_INSERTERS_HPP
 #define OPERATOR_INSERTERS_HPP
+#include <operator/concepts.hpp>
 #include <operator/operation.hpp>
 #include <utility>
 
@@ -46,7 +47,7 @@ namespace Operator
     template <> struct Operator<tags::push_front>
     {
       template <typename Container, typename Value>
-      OPERATOR_CREATE_REQUIRES(concepts::HasPushFront<Container, Args...>)
+      OPERATOR_CREATE_REQUIRES(concepts::HasPushFront<Container, Value>)
       static auto operation(Container& container, Value&& value)
           OPERATOR_CREATE_TRAILING_RETURN(
               decltype(container.push_front(std::forward<Value>(value))))
@@ -78,7 +79,7 @@ namespace Operator
     template <> struct Operator<tags::push_back>
     {
       template <typename Container, typename Value>
-      OPERATOR_CREATE_REQUIRES(concepts::HasPushBack<Container, Args...>)
+      OPERATOR_CREATE_REQUIRES(concepts::HasPushBack<Container, Value>)
       static auto operation(Container& container, Value&& value)
           OPERATOR_CREATE_TRAILING_RETURN(
               decltype(container.push_back(std::forward<Value>(value))))
