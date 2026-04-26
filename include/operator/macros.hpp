@@ -2,11 +2,11 @@
 #define OPERATOR_MACROS_HPP
 
 #if defined(__cpp_concepts)
-#define OPERATOR_CONCEPT(...) requires __VA_ARGS__
-#define OPERATOR_TRAILING_RETURN(...)
+#define OPERATOR_CREATE_REQUIRES(...) requires __VA_ARGS__
+#define OPERATOR_CREATE_TRAILING_RETURN(...)
 #else
-#define OPERATOR_CONCEPT(...)
-#define OPERATOR_TRAILING_RETURN(...) ->__VA_ARGS__
+#define OPERATOR_CREATE_REQUIRES(...)
+#define OPERATOR_CREATE_TRAILING_RETURN(...) ->__VA_ARGS__
 #endif
 
 #define OPERATOR_CREATE_TAG(name)                                              \
@@ -14,11 +14,8 @@
   {                                                                            \
   };
 
-#define OPERATOR_CREATE_HAS_INSERTION_OP_CONCEPT(insertion_name,               \
-                                                 insertion_function)           \
-  template <typename Container, typename... Args>                              \
-  concept Has##insertion_name =                                                \
-      requires(Container container, Args&&... args) {                          \
-        container.insertion_function(args...);                                 \
-      };
+#define OPERATOR_CREATE_HAS_METHOD_CONCEPT(operation, method)                  \
+  template <typename Type, typename... Args>                                   \
+  concept Has##operation = OPERATOR_CREATE_REQUIRES(                           \
+      (Type type, Args&&... args) { type.method(args...); });
 #endif // OPERATOR_MACROS_HPP
