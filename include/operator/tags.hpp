@@ -5,21 +5,12 @@
 namespace Operator::tags
 {
   /*  Tags
-    *  struct name
-    *  {
-    *  };
-    *  CREATE_TAG example output
-    */
-  // Insertions
-  OPERATOR_CREATE_TAG(push_front);
-  OPERATOR_CREATE_TAG(emplace_front);
-
-  OPERATOR_CREATE_TAG(push_back);
-  OPERATOR_CREATE_TAG(emplace_back);
-
-  // Deleters
-  OPERATOR_CREATE_TAG(DeleteScalar)
-  OPERATOR_CREATE_TAG(DeleteArray)
-  OPERATOR_CREATE_TAG(CustomDeleter)
+   *  struct name
+   *  {
+   *  };
+   *  OPERATOR_CREATE_TAG(name) example output
+   */
+  // Misc
+  OPERATOR_CREATE_TAG(NoOp)
 } // namespace Operator::tags
 #endif // OPERATOR_TAGS_HPP
