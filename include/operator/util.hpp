@@ -3,9 +3,8 @@
 #include <operator/macros.hpp>
 
 // STL
-#include <functional>
-#include <iostream>
 #include <type_traits>
+#include <utility>
 
 namespace Operator
 {
@@ -13,17 +12,12 @@ namespace Operator
   {
     template <typename T> using remove_pointer = std::remove_pointer_t<T>;
 
-    template <typename Container,
-              typename Printer =
-                  std::function<void(typename Container::value_type&& value)>>
+    template <typename Container, typename Printer>
     OPERATOR_CREATE_REQUIRES(requires(Container& container) {
       container.cbegin();
       container.cend();
     })
-    static auto display(
-        const Container& container,
-        Printer&& print = [](typename Container::value_type&& value)
-        { std::cout << value << " "; })
+    static auto display(const Container& container, Printer&& print)
         OPERATOR_CREATE_TRAILING_RETURN(decltype(container.cbegin(),
                                                  container.cend(),
                                                  void()))
