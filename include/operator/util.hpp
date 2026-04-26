@@ -10,8 +10,10 @@ namespace Operator
 {
   namespace util
   {
-    template <typename T> using remove_pointer = std::remove_pointer_t<T>;
     template <typename T> using remove_reference = std::remove_reference_t<T>;
+    template <typename T>
+    using remove_pointer = std::remove_pointer_t<remove_reference<T>>;
+
     template <typename T>
     using is_pointer = std::is_pointer<remove_reference<T>>;
     template <typename T> constexpr bool is_pointer_v{is_pointer<T>::value};
