@@ -2,6 +2,7 @@
 #define OPERATOR_CONCEPTS_HPP
 #if defined(__cpp_concepts)
 #include <operator/macros.hpp>
+#include <operator/util.hpp>
 
 namespace Operator::concepts
 {
@@ -9,7 +10,7 @@ namespace Operator::concepts
        *  template <typename Type, typename... Args>
        *  concept HasPushFront = requires(Type type, Args... args)
        *  {
-       *    type.push_front(args...);
+       *    util::deref(type).push_front(args...);
        *  };
        *  CREATE_HAS__METHOD_CONCEPT example output
        */

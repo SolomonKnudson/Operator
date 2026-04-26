@@ -8,7 +8,7 @@
 #define OPERATOR_CREATE_HAS_METHOD_CONCEPT(operation, method)                  \
   template <typename Type, typename... Args>                                   \
   concept Has##operation = OPERATOR_CREATE_REQUIRES(                           \
-      (Type type, Args&&... args) { type.method(args...); });
+      (Type type, Args&&... args) { util::deref(type).method(args...); });
 #else
 #define OPERATOR_CREATE_REQUIRES(...)
 #define OPERATOR_CREATE_TRAILING_RETURN(...) ->__VA_ARGS__
