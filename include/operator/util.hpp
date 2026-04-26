@@ -11,18 +11,38 @@ namespace Operator
   namespace util
   {
     template <typename T> using remove_pointer = std::remove_pointer_t<T>;
+    template <typename T> using remove_reference = std::remove_reference_t<T>;
+    template <typename T>
+    using is_pointer = std::is_pointer<remove_reference<T>>;
+    template <typename T> constexpr bool is_pointer_v{is_pointer<T>::value};
+
+    template <typename T>
+    constexpr decltype(auto)
+    deref(T&& type)
+    {
+      if constexpr (is_pointer_v<T>)
+      {
+        return *type;
+      }
+      else
+      {
+        return std::forward<T>(type);
+      }
+    }
 
     template <typename Container, typename Printer>
     OPERATOR_CREATE_REQUIRES(requires(Container& container) {
-      container.cbegin();
-      container.cend();
+      deref(container).cbegin();
+      deref(container).cend();
     })
-    static auto display(const Container& container, Printer&& print)
-        OPERATOR_CREATE_TRAILING_RETURN(decltype(container.cbegin(),
-                                                 container.cend(),
+    static auto display(const Container&& container, Printer&& print)
+        OPERATOR_CREATE_TRAILING_RETURN(decltype(deref(container).cbegin(),
+                                                 deref(container).cend(),
                                                  void()))
     {
-      for (auto it{container.cbegin()}, end{container.cend()}; it != end; ++it)
+      for (auto it{deref(container).cbegin()}, end{deref(container).cend()};
+           it != end;
+           ++it)
       {
         print(std::forward<decltype(*it)>(*it));
       }
