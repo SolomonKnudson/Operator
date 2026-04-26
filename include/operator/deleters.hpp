@@ -7,18 +7,18 @@
 
 namespace Operator::deleters
 {
-  template <typename Type, typename... Args>
+  template <typename Type, typename Value>
   static decltype(auto)
-  scalar(Type& type, Args&&... args)
+  scalar(Type& type, Value&& value)
   {
-    return operation<tags::DeleteScalar>(type, std::forward<Args>(args)...);
+    return operation<tags::DeleteScalar>(type, std::forward<Value>(value));
   }
 
-  template <typename Type, typename... Args>
+  template <typename Type, typename Value>
   static decltype(auto)
-  array(Type& type, Args&&... args)
+  array(Type& type, Value&& value)
   {
-    return operation<tags::DeleteArray>(type, std::forward<Args>(args)...);
+    return operation<tags::DeleteArray>(type, std::forward<Value>(value));
   }
 
   template <typename Type, typename... Args>
@@ -50,14 +50,6 @@ namespace Operator::policies
       delete[] ptr;
     }
   };
-
-  template <typename T>
-  void
-  delete_set_nullptr(T*& ptr)
-  {
-    delete ptr;
-    ptr = nullptr;
-  }
 
   template <> struct Operator<tags::CustomDeleter>
   {

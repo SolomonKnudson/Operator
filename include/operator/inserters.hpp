@@ -5,11 +5,11 @@
 
 namespace Operator::inserters
 {
-  template <typename Container, typename... Args>
+  template <typename Container, typename Value>
   static decltype(auto)
-  push_front(Container& container, Args&&... args)
+  push_front(Container& container, Value&& value)
   {
-    return operation<tags::push_front>(container, std::forward<Args>(args)...);
+    return operation<tags::push_front>(container, std::forward<Value>(value));
   }
 
   template <typename Container, typename... Args>
@@ -20,11 +20,11 @@ namespace Operator::inserters
                                           std::forward<Args>(args)...);
   }
 
-  template <typename Container, typename... Args>
+  template <typename Container, typename Value>
   static decltype(auto)
-  push_back(Container& container, Args&&... args)
+  push_back(Container& container, Value&& value)
   {
-    return operation<tags::push_back>(container, std::forward<Args>(args)...);
+    return operation<tags::push_back>(container, std::forward<Value>(value));
   }
 
   template <typename Container, typename... Args>
