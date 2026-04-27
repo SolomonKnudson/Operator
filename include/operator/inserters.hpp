@@ -25,10 +25,11 @@ namespace Operator
       OPERATOR_CREATE_REQUIRES(concepts::HasPushFront<Container, Value>)
       static auto operation(Container&& container, Value&& value)
           OPERATOR_CREATE_TRAILING_RETURN(
-              decltype(util::deref(container).push_front(
-                  std::forward<Value>(value))))
+              decltype(util::deref(std::forward<Container>(container))
+                           .push_front(std::forward<Value>(value))))
       {
-        return util::deref(container).push_front(std::forward<Value>(value));
+        return util::deref(std::forward<Container>(container))
+            .push_front(std::forward<Value>(value));
       }
     };
 
@@ -38,18 +39,19 @@ namespace Operator
       OPERATOR_CREATE_REQUIRES(concepts::HasEmplaceFront<Container, Args...>)
       static auto operation(Container&& container, Args&&... args)
           OPERATOR_CREATE_TRAILING_RETURN(
-              decltype(util::deref(container).emplace_front(
-                  std::forward<Args>(args)...)))
+              decltype(util::deref(std::forward<Container>(container))
+                           .emplace_front(std::forward<Args>(args)...)))
       {
         if constexpr (sizeof...(Args) == 0)
         {
-          return util::deref(container).emplace_front();
+          return util::deref(std::forward<Container>(container))
+              .emplace_front();
         }
         else
         {
-          return (
-              util::deref(container).emplace_front(std::forward<Args>(args)),
-              ...);
+          return (util::deref(std::forward<Container>(container))
+                      .emplace_front(std::forward<Args>(args)),
+                  ...);
         }
       }
     };
@@ -61,10 +63,11 @@ namespace Operator
       OPERATOR_CREATE_REQUIRES(concepts::HasPushBack<Container, Value>)
       static auto operation(Container&& container, Value&& value)
           OPERATOR_CREATE_TRAILING_RETURN(
-              decltype(util::deref(container).push_back(
-                  std::forward<Value>(value))))
+              decltype(util::deref(std::forward<Container>(container))
+                           .push_back(std::forward<Value>(value))))
       {
-        return container.push_back(std::forward<Value>(value));
+        return util::deref(std::forward<Container>(container))
+            .push_back(std::forward<Value>(value));
       }
     };
 
@@ -74,16 +77,17 @@ namespace Operator
       OPERATOR_CREATE_REQUIRES(concepts::HasEmplaceBack<Container, Args...>)
       static auto operation(Container&& container, Args&&... args)
           OPERATOR_CREATE_TRAILING_RETURN(
-              decltype(util::deref(container).emplace_back(
-                  std::forward<Args>(args)...)))
+              decltype(util::deref(std::forward<Container>(container))
+                           .emplace_back(std::forward<Args>(args)...)))
       {
         if constexpr (sizeof...(Args) == 0)
         {
-          return util::deref(container).emplace_back();
+          return util::deref(std::forward<Container>(container)).emplace_back();
         }
         else
         {
-          return (util::deref(container).emplace_back(std::forward<Args>(args)),
+          return (util::deref(std::forward<Container>(container))
+                      .emplace_back(std::forward<Args>(args)),
                   ...);
         }
       }
