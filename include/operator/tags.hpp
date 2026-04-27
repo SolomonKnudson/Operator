@@ -1,6 +1,5 @@
 #ifndef OPERATOR_TAGS_HPP
 #define OPERATOR_TAGS_HPP
-#include <operator/macros.hpp>
 
 #define OPERATOR_CREATE_TAG(name)                                              \
   struct name                                                                  \

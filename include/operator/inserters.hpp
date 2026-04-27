@@ -1,10 +1,8 @@
 #ifndef OPERATOR_INSERTERS_HPP
 #define OPERATOR_INSERTERS_HPP
 #include <operator/policies.hpp>
-#include <operator/tags.hpp>
-#include <operator/util.hpp>
 
-//STL
+// STL
 #include <utility>
 
 namespace Operator::inserters

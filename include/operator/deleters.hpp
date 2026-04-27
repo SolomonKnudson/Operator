@@ -1,9 +1,10 @@
 #ifndef OPERATOR_DELETERS_HPP
 #define OPERATOR_DELETERS_HPP
-#include <operator/operation.hpp>
+#include <operator/policies.hpp>
 
 // STL
 #include <utility>
+
 namespace Operator::deleters
 {
   template <typename Type>

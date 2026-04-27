@@ -3,7 +3,7 @@
 #include <operator/tags.hpp>
 #include <operator/util.hpp>
 
-//STL
+// STL
 #include <functional>
 
 namespace Operator::policies
