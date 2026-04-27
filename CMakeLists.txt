@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.28)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS true)
+
 #Stop module flags from being passed
 set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
 
@@ -21,14 +22,11 @@ set_target_properties(Operator PROPERTIES
   VISIBILITY_INLINES_HIDDEN ON
 )
 
-
-
-
 #For internal development only
 if(PROJECT_IS_TOP_LEVEL)
 add_library(debug_warnings INTERFACE)
 target_compile_options(debug_warnings INTERFACE
-  $<$<AND:$<CONFIG:Debug>,$<CXX_COMPILER_ID:GNU>>:
+  $<$<AND:$<CONFIG:Debug>,$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>>:
     -Wall
     -Wextra
     -Wpedantic
@@ -46,11 +44,21 @@ target_compile_options(debug_warnings INTERFACE
     -Wcast-align
     -Wcast-qual
     # -Werror
-  >
-) 
+   >
+)
+
+add_library(debug_build_flags INTERFACE)
+target_compile_options(debug_build_flags INTERFACE
+  $<$<AND:$<CONFIG:Debug>,$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>>:
+    -O0
+    -g3
+    -fno-omit-frame-pointer
+   >
+)
 
 target_link_libraries(Operator INTERFACE
   debug_warnings
+  debug_build_flags
 )
 
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/app)
