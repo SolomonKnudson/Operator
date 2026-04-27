@@ -1,28 +1,20 @@
 #ifndef OPERATOR_UTIL_HPP
 #define OPERATOR_UTIL_HPP
 #include <operator/macros.hpp>
+#include <operator/type_traits.hpp>
 
 // STL
-#include <type_traits>
 #include <utility>
 
 namespace Operator
 {
   namespace util
   {
-    template <typename T> using remove_reference = std::remove_reference_t<T>;
-    template <typename T>
-    using remove_pointer = std::remove_pointer_t<remove_reference<T>>;
-
-    template <typename T>
-    using is_pointer = std::is_pointer<remove_reference<T>>;
-    template <typename T> constexpr bool is_pointer_v{is_pointer<T>::value};
-
     template <typename T>
     constexpr decltype(auto)
     deref(T&& type)
     {
-      if constexpr (is_pointer_v<T>)
+      if constexpr (type_traits::can_deref_v<T>)
       {
         return *type;
       }
