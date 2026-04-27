@@ -2,14 +2,13 @@
 #define OPERATOR_TAGS_HPP
 #include <operator/macros.hpp>
 
+#define OPERATOR_CREATE_TAG(name)                                              \
+  struct name                                                                  \
+  {                                                                            \
+  };
+
 namespace Operator::tags
 {
-  /*  Tags
-   *  struct name
-   *  {
-   *  };
-   *  OPERATOR_CREATE_TAG(name) example output
-   */
   // Insertions
   // Front Insertions
   OPERATOR_CREATE_TAG(push_front);
