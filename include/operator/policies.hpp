@@ -1,5 +1,6 @@
 #ifndef OPERATOR_POLICIES_HPP
 #define OPERATOR_POLICIES_HPP
+#include <operator/concepts.hpp>
 #include <operator/tags.hpp>
 #include <operator/util.hpp>
 
