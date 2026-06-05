@@ -49,6 +49,9 @@ main(int argc, char* argv[])
   operation<cout>("Test int: ", test_int, '\n');
 
   // Assert check
+  // operation<cin>();
+  // operation<cout>();
+
   // operation<push_back>(test);
   // operation<push_front>(&test);
 
@@ -62,9 +65,9 @@ main(int argc, char* argv[])
       // NOTE: Impl:Invoke will not handle arg pack
       [](const auto... elem)
       {
-        std::cout << "operation<Invoke>(args...): ";
-        ((std::cout << elem << ' '), ...);
-        std::cout << '\n';
+        operation<cout>("operation<Invoke>(args...): ");
+        (operation<cout>(elem, ' '), ...);
+        operation<cout>('\n');
       },
       90,
       200,
@@ -74,7 +77,7 @@ main(int argc, char* argv[])
   operation<FoldInvoke>(
       // NOTE: Impl:FoldInvoke will handle arg pack
       [](const auto& elem)
-      { std::cout << "operation<FoldInvoke>(args...): " << elem << '\n'; },
+      { operation<cout>("operation<FoldInvoke>(args...): ", elem, '\n'); },
       90,
       200,
       40,

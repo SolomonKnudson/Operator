@@ -23,6 +23,19 @@ namespace Operator::internal::concepts
   //Back insertions
   OPERATOR_CREATE_HAS_FOLD_METHOD_CONCEPT(PushBack, push_back);
   OPERATOR_CREATE_HAS_FOLD_METHOD_CONCEPT(EmplaceBack, emplace_back);
+
+  //IOStream
+  template <typename Stream, typename LHS>
+  concept HasStdStreamInsertion =
+      OPERATOR_CREATE_REQUIRES((Stream& stream, LHS&& lhs) {
+        stream >> util::deref(std::forward<LHS>(lhs));
+      });
+
+  template <typename Stream, typename... Args>
+  concept HasStdStreamOutsertion =
+      OPERATOR_CREATE_REQUIRES((Stream& stream, Args&&... args) {
+        ((stream << std::forward<Args>(args)), ...);
+      });
 } // namespace Operator::internal::concepts
 #endif // __cpp_concepts
 #endif // OPERATOR_CONCEPTS_HPP

@@ -21,6 +21,10 @@ namespace Operator::builtin
   OPERATOR_CREATE_IMPL_TAG(FoldInvoke);
 
   // IOstream
+  // IOstream impls follow STL convention
+  // Insertion: >>. 'Outsertion': <<
+  OPERATOR_CREATE_IMPL_TAG(iostream);
+
   OPERATOR_CREATE_IMPL_TAG(cin);
   OPERATOR_CREATE_IMPL_TAG(wcin);
 
