@@ -90,19 +90,19 @@ main(int argc, char* argv[])
       {
         return util::display_container(
             std::forward<decltype(container)>(container),
-            [](const auto& elem) { std::cout << elem << ' '; },
+            [](const auto& elem) { operation<cout>(elem, ' '); },
             "operation<Invoke>(util::display, container): ");
       },
       &test);
 
   operation<DisplayContainer>(
       test,
-      [](const auto& elem) { std::cout << elem << ' '; },
+      [](const auto& elem) { operation<cout>(elem, ' '); },
       "operation<DisplayContainer>(container, printer): ");
 
   util::display_container(
       &test,
-      [](const auto& elem) { std::cout << elem << ' '; },
+      [](const auto& elem) { operation<cout>(elem, ' '); },
       "util::display_container(container, printer): ");
 
   return 0;

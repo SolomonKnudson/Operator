@@ -4,7 +4,7 @@
 
 // 3rd Party
 // STL
-#include <iostream>
+#include <string>
 #include <utility>
 // Me :)
 #include <type_traits/type_traits.hpp>
@@ -34,7 +34,7 @@ namespace Operator
     })
     static OPERATOR_AUTO_RETURN
         display_container(Container&& container,
-                          Printer&& printer,
+                          Printer&& print,
                           const std::string& prefix = "",
                           const std::string& suffix = "\n")
             OPERATOR_CREATE_TRAILING_RETURN(
@@ -42,12 +42,12 @@ namespace Operator
                          deref(std::forward<Container>(container)).cend(),
                          void()))
     {
-      std::cout << prefix;
+      operation<builtin::cout>(prefix);
       for (const auto& item : deref(std::forward<Container>(container)))
       {
-        printer(item);
+        print(item);
       }
-      std::cout << suffix;
+      operation<builtin::cout>(suffix);
     }
   } // namespace util
 } // namespace Operator
