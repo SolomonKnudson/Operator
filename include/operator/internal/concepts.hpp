@@ -25,10 +25,10 @@ namespace Operator::internal::concepts
   OPERATOR_CREATE_HAS_FOLD_METHOD_CONCEPT(EmplaceBack, emplace_back);
 
   //IOStream
-  template <typename Stream, typename LHS>
+  template <typename Stream, typename LValue>
   concept HasStdStreamInsertion =
-      OPERATOR_CREATE_REQUIRES((Stream& stream, LHS&& lhs) {
-        stream >> util::deref(std::forward<LHS>(lhs));
+      OPERATOR_CREATE_REQUIRES((Stream& stream, LValue&& l_value) {
+        stream >> util::deref(std::forward<l_value>(l_value));
       });
 
   template <typename Stream, typename... Args>
