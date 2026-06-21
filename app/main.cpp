@@ -11,20 +11,49 @@ template <> struct Operator::Impl<Test>
   static void
   invoke(Args&&... args)
   {
-    (Operator::operation<Operator::builtin::cout>(
-         "operation<Test>(args...): ", std::forward<Args>(args), '\n'),
-     ...);
   }
 };
+
+// namespace Inserter
+// {
+//   template <typename Container, typename... Args>
+//   decltype(auto)
+//   push_front(Container&& container, Args&&... args)
+//   {
+//     Operator::operation<Operator::builtin::push_front>(
+//         std::forward<Container>(container), std::forward<Args>(args)...);
+//   };
+//
+//   template <typename Container, typename... Args>
+//   decltype(auto)
+//   emplace_front(Container&& container, Args&&... args)
+//   {
+//     Operator::operation<Operator::builtin::emplace_front>(
+//         std::forward<Container>(container), std::forward<Args>(args)...);
+//   };
+//
+//   template <typename Container, typename... Args>
+//   decltype(auto)
+//   push_back(Container&& container, Args&&... args)
+//   {
+//     Operator::operation<Operator::builtin::push_back>(
+//         std::forward<Container>(container), std::forward<Args>(args)...);
+//   };
+//
+//   template <typename Container, typename... Args>
+//   decltype(auto)
+//   emplace_back(Container&& container, Args&&... args)
+//   {
+//     Operator::operation<Operator::builtin::emplace_back>(
+//         std::forward<Container>(container), std::forward<Args>(args)...);
+//   };
+// }; // namespace Inserter
 
 int
 main(int argc, char* argv[])
 {
   using namespace Operator;
   using namespace Operator::builtin;
-
-  operation<cout>(
-      "Can deref int*: ", std::boolalpha, type_traits::can_deref_v<int*>, '\n');
 
   std::list<int> test{};
   //std::vector<int> test{};
@@ -33,20 +62,10 @@ main(int argc, char* argv[])
   auto well{operation<emplace_front>(&test, 20, 16)};
   auto ref{operation<emplace_back>(&test, 17, 90)};
 
-  operation<cout>("Container<int>::emplace_front(): ", well, '\n');
-  operation<cout>("Container<int>::emplace_back(): ", ref, '\n');
-
   std::string test_string{};
   int test_int{};
 
-  operation<cout>("Enter string: ");
-  operation<cin>(&test_string);
-
-  operation<cout>("Enter number: ");
-  operation<cin>(&test_int);
-
-  operation<cout>("Test string: ", test_string, '\n');
-  operation<cout>("Test int: ", test_int, '\n');
+  const std::string const_string{"test"};
 
   // Assert check
   // operation<cin>();
@@ -63,12 +82,7 @@ main(int argc, char* argv[])
 
   operation<Invoke>(
       // NOTE: Impl:Invoke will not handle arg pack
-      [](const auto... elem)
-      {
-        operation<cout>("operation<Invoke>(args...): ");
-        (operation<cout>(elem, ' '), ...);
-        operation<cout>('\n');
-      },
+      [](const auto... elem) {},
       90,
       200,
       40,
@@ -76,8 +90,7 @@ main(int argc, char* argv[])
 
   operation<FoldInvoke>(
       // NOTE: Impl:FoldInvoke will handle arg pack
-      [](const auto& elem)
-      { operation<cout>("operation<FoldInvoke>(args...): ", elem, '\n'); },
+      [](const auto& elem) {},
       90,
       200,
       40,
@@ -90,19 +103,19 @@ main(int argc, char* argv[])
       {
         return util::display_container(
             std::forward<decltype(container)>(container),
-            [](const auto& elem) { operation<cout>(elem, ' '); },
+            [](const auto& elem) {},
             "operation<Invoke>(util::display, container): ");
       },
       &test);
 
   operation<DisplayContainer>(
       test,
-      [](const auto& elem) { operation<cout>(elem, ' '); },
+      [](const auto& elem) {},
       "operation<DisplayContainer>(container, printer): ");
 
   util::display_container(
       &test,
-      [](const auto& elem) { operation<cout>(elem, ' '); },
+      [](const auto& elem) {},
       "util::display_container(container, printer): ");
 
   return 0;

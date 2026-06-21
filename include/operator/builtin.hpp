@@ -16,23 +16,6 @@ namespace Operator::builtin
   OPERATOR_CREATE_IMPL_TAG(Invoke);
   OPERATOR_CREATE_IMPL_TAG(FoldInvoke);
 
-  // IOstream
-  // IOstream impls follow STL convention
-  // Insertion: >>. 'Outsertion': <<
-  OPERATOR_CREATE_IMPL_TAG(iostream);
-
-  OPERATOR_CREATE_IMPL_TAG(cin);
-  OPERATOR_CREATE_IMPL_TAG(wcin);
-
-  OPERATOR_CREATE_IMPL_TAG(cout);
-  OPERATOR_CREATE_IMPL_TAG(wcout);
-
-  OPERATOR_CREATE_IMPL_TAG(cerr);
-  OPERATOR_CREATE_IMPL_TAG(wcerr);
-
-  OPERATOR_CREATE_IMPL_TAG(clog);
-  OPERATOR_CREATE_IMPL_TAG(wclog);
-
   // Misc
   OPERATOR_CREATE_IMPL_TAG(DisplayContainer);
   OPERATOR_CREATE_IMPL_TAG(NoOp);

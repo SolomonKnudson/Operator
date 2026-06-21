@@ -3,6 +3,5 @@
 #include <operator/internal/impl/inserter.hpp>
 #include <operator/internal/impl/invoke.hpp>
 
-#include <operator/internal/impl/iostream.hpp>
 #include <operator/internal/impl/miscellaneous.hpp>
 #endif // OPERATOR_INTERNAL_IMPLS
