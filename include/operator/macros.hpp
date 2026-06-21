@@ -1,5 +1,11 @@
 #ifndef OPERATOR_INTERNAL_MACROS_HPP
 #define OPERATOR_INTERNAL_MACROS_HPP
+
+#define OPERATOR_CREATE_IMPL_TAG(name)                                         \
+  struct name                                                                  \
+  {                                                                            \
+  };
+
 #if defined(__cpp_concepts)
 #define OPERATOR_CREATE_REQUIRES(...) requires __VA_ARGS__
 #define OPERATOR_AUTO_RETURN decltype(auto)

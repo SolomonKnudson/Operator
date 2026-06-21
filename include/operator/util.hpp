@@ -1,9 +1,10 @@
 #ifndef OPERATOR_UTIL_HPP
 #define OPERATOR_UTIL_HPP
-#include <operator/internal/macros.hpp>
+#include <operator/macros.hpp>
 
 // 3rd Party
 // STL
+#include <iostream>
 #include <string>
 #include <utility>
 // Me :)
@@ -42,12 +43,12 @@ namespace Operator
                          deref(std::forward<Container>(container)).cend(),
                          void()))
     {
-      operation<builtin::cout>(prefix);
+      std::cout << prefix;
       for (const auto& item : deref(std::forward<Container>(container)))
       {
         print(item);
       }
-      operation<builtin::cout>(suffix);
+      std::cout << suffix;
     }
   } // namespace util
 } // namespace Operator

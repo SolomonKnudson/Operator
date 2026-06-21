@@ -1,10 +1,6 @@
 #ifndef OPERATOR_BUILTIN_TAGS_HPP
 #define OPERATOR_BUILTIN_TAGS_HPP
-
-#define OPERATOR_CREATE_IMPL_TAG(name)                                         \
-  struct name                                                                  \
-  {                                                                            \
-  };
+#include <operator/macros.hpp>
 
 namespace Operator::builtin
 {

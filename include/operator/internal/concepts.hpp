@@ -1,7 +1,7 @@
-#ifndef OPERATOR_CONCEPTS_HPP
-#define OPERATOR_CONCEPTS_HPP
+#ifndef OPERATOR_INTERNAL_CONCEPTS_HPP
+#define OPERATOR_INTERNAL_CONCEPTS_HPP
 #if defined(__cpp_concepts)
-#include <operator/internal/macros.hpp>
+#include <operator/macros.hpp>
 #include <operator/util.hpp>
 
 namespace Operator::internal::concepts
@@ -28,7 +28,7 @@ namespace Operator::internal::concepts
   template <typename Stream, typename LValue>
   concept HasStdStreamInsertion =
       OPERATOR_CREATE_REQUIRES((Stream& stream, LValue&& l_value) {
-        stream >> util::deref(std::forward<l_value>(l_value));
+        stream >> util::deref(std::forward<LValue>(l_value));
       });
 
   template <typename Stream, typename... Args>
@@ -38,4 +38,4 @@ namespace Operator::internal::concepts
       });
 } // namespace Operator::internal::concepts
 #endif // __cpp_concepts
-#endif // OPERATOR_CONCEPTS_HPP
+#endif // OPERATOR_INTERNAL_CONCEPTS_HPP
