@@ -18,7 +18,7 @@ namespace Operator
     constexpr decltype(auto)
     deref(T&& type)
     {
-      if constexpr (type_traits::can_deref_v<T>)
+      if constexpr (STLC::type_traits::can_deref_v<T>)
       {
         return *type;
       }

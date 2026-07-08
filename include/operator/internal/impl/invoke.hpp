@@ -15,9 +15,10 @@ namespace Operator
   // template functions passed as forwarding lambdas
   template <> struct Impl<builtin::Invoke>
   {
-    template <typename Function,
-              typename... Args,
-              typename = type_traits::enable_if_invocable<Function, Args...>>
+    template <
+        typename Function,
+        typename... Args,
+        typename = STLC::type_traits::enable_if_invocable<Function, Args...>>
     static decltype(auto)
     invoke(Function&& function, Args&&... args)
     {
@@ -29,11 +30,10 @@ namespace Operator
 
   template <> struct Impl<builtin::FoldInvoke>
   {
-    template <
-        typename Function,
-        typename... Args,
-        typename =
-            type_traits::enable_if_separate_args_invocable<Function, Args...>>
+    template <typename Function,
+              typename... Args,
+              typename = STLC::type_traits::
+                  enable_if_separate_args_invocable<Function, Args...>>
     static decltype(auto)
     invoke(Function&& function, Args&&... args)
     {
