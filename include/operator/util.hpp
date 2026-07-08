@@ -8,7 +8,7 @@
 #include <string>
 #include <utility>
 // Me :)
-#include <type_traits/type_traits.hpp>
+#include <STLConvenience/type_traits.hpp>
 
 namespace Operator
 {

@@ -19,12 +19,13 @@ target_compile_features(Operator INTERFACE
 
 include(FetchContent)
 FetchContent_Declare(
-  TypeTraitsWrapper
-  GIT_REPOSITORY https://github.com/SolomonKnudson/TypeTraitsWrapper.git   
+  STLConvenience
+  GIT_REPOSITORY https://github.com/SolomonKnudson/STLConvenience.git 
   GIT_TAG main
 )
-FetchContent_MakeAvailable(TypeTraitsWrapper)
-target_link_libraries(Operator INTERFACE TypeTraitsWrapper) 
+FetchContent_MakeAvailable(STLConvenience)
+target_link_libraries(Operator INTERFACE STLConvenience)
+ 
 
 #For internal development only
 if(PROJECT_IS_TOP_LEVEL)
