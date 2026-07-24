@@ -4,8 +4,6 @@
 
 // 3rd Party
 // STL
-#include <iostream>
-#include <string>
 #include <utility>
 // Me :)
 #include <STLConvenience/type_traits.hpp>
@@ -26,29 +24,6 @@ namespace Operator
       {
         return std::forward<T>(type);
       }
-    }
-
-    template <typename Container, typename Printer>
-    OPERATOR_CREATE_REQUIRES(requires(Container&& container) {
-      deref(container).cbegin();
-      deref(container).cend();
-    })
-    static OPERATOR_AUTO_RETURN
-        display_container(Container&& container,
-                          Printer&& print,
-                          const std::string& prefix = "",
-                          const std::string& suffix = "\n")
-            OPERATOR_CREATE_TRAILING_RETURN(
-                decltype(deref(std::forward<Container>(container)).cbegin(),
-                         deref(std::forward<Container>(container)).cend(),
-                         void()))
-    {
-      std::cout << prefix;
-      for (const auto& item : deref(std::forward<Container>(container)))
-      {
-        print(item);
-      }
-      std::cout << suffix;
     }
   } // namespace util
 } // namespace Operator

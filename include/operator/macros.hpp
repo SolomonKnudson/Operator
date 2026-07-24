@@ -1,5 +1,5 @@
-#ifndef OPERATOR_INTERNAL_MACROS_HPP
-#define OPERATOR_INTERNAL_MACROS_HPP
+#ifndef OPERATOR_MACROS_HPP
+#define OPERATOR_MACROS_HPP
 
 #define OPERATOR_CREATE_IMPL_TAG(name)                                         \
   struct name                                                                  \
@@ -30,4 +30,4 @@
 #define OPERATOR_AUTO_RETURN auto
 #define OPERATOR_CREATE_TRAILING_RETURN(...) ->__VA_ARGS__
 #endif
-#endif // OPERATOR_INTERNAL_MACROS_HPP
+#endif // OPERATOR_MACROS_HPP

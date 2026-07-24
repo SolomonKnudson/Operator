@@ -17,7 +17,6 @@ namespace Operator::builtin
   OPERATOR_CREATE_IMPL_TAG(FoldInvoke);
 
   // Misc
-  OPERATOR_CREATE_IMPL_TAG(DisplayContainer);
   OPERATOR_CREATE_IMPL_TAG(NoOp);
 } // namespace Operator::builtin
 #endif // OPERATOR_BUILTIN_TAGS_HPP
